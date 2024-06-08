@@ -70,6 +70,25 @@ class MainKtTest {
         assertEquals(expected, main("5+5*5*5+5*5"))
     }
 
+    @Test
+    fun TestDivision1() {
+        val expected: Double = 1.0
+        assertEquals(expected, main("10/10"))
+    }
+
+    @Test
+    fun TestDivision2() {
+        val expected: Double = 10.0
+        assertEquals(expected, main("8/2*2+2"))
+    }
+
+    @Test
+    fun TestDivision3() {
+        val expected: Double = 75.28888
+        assertEquals(expected, main("7.6/9*11+66"))
+    }
+
+
 
 
 }
