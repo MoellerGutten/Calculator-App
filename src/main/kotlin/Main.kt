@@ -29,22 +29,49 @@ fun multivision(list : List<String>): List<String> {
 
     println(mulIndex)
     val reg = Regex("(?=[*])")
-    var newList : MutableList<String> = list.toString().removeSurrounding("[","]").split(reg).toMutableList()
+    val newList : MutableList<String> = list.toString().removeSurrounding("[","]").split(reg).toMutableList()
 
-    println(newList)
-    mulIndex.forEachIndexed() {num, index ->
-        if (newList[num+1][0] == '*') {
-            newList[num+1] = newList[num+1].replace("*","")
-            println(newList[num+1])
-            result += newList[num].toDouble() * newList[num+1].toDouble()
-            newList.removeAt(num)
+    mulIndex.forEachIndexed() {num, _ ->
+        val mutableListIterator = newList.listIterator()
+        println("For loop iteration: $num")
+        try {
+            if (newList[num + 1][0] == '*') {
+                newList[num] = newList[num].replace("*", "")
+                newList[num + 1] = newList[num + 1].replace("*", "")
+                println(newList)
+                result += newList[0].toDouble() * newList[1].toDouble() - result
+
+                mutableListIterator.next()
+                mutableListIterator.remove()
+
+                println("Step 1: $newList")
+                mutableListIterator.next()
+                mutableListIterator.remove()
+
+                println("Step 2: $newList")
+                mutableListIterator.add(result.toString())
+                println("Step 3: $newList")
+            }
+        } catch(_ : IndexOutOfBoundsException){
+            result += newList[0].toDouble() * newList[1].toDouble() - result
+
+            mutableListIterator.next()
+            mutableListIterator.remove()
+
             println("Step 1: $newList")
-            newList.removeAt(num)
+            mutableListIterator.next()
+            mutableListIterator.remove()
+
             println("Step 2: $newList")
-            newList.add(num, result.toString())
+            mutableListIterator.add(result.toString())
             println("Step 3: $newList")
         }
     }
+
+    //if (newList[1][0] == '*') {
+    //        newList[0] = "*${newList[0]}"
+    //}
+
     println("Finished $newList")
     return newList
 }

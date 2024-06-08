@@ -48,12 +48,18 @@ class MainKtTest {
 
     @Test
     fun TestMultiplication3() {
+        val expected: Double = 625.0
+        assertEquals(expected, main("5*5+5*5"))
+    }
+
+    @Test
+    fun TestMultiplication4() {
         val expected: Double = 25.0
         assertEquals(expected, main("5*5+5-5"))
     }
 
     @Test
-    fun TestMultiplication4() {
+    fun TestMultiplication5() {
         val expected: Double = -25.0
         assertEquals(expected, main("-5*5"))
     }
