@@ -12,18 +12,22 @@ fun parseInput(input : String): List<String> {
 
 fun multiplication(list : List<String>): List<String> {
     var result : Double = 0.0
-
-    println(list)
     val newList : MutableList<String> = list.toMutableList()
 
     var i = 0
     while (i < newList.size-1) {
-        println("index at: $i")
-        if (newList[i + 1][0] == '*') {
-            newList[i] = newList[i].replace("*", "")
-            newList[i + 1] = newList[i + 1].replace("*", "")
+        if (newList[i + 1][0] == '*' || newList[i+1][0] == '/') {
+
             println(newList)
-            result += newList[i].toDouble() * newList[i + 1].toDouble() - result
+            if (newList[i + 1][0] == '*') {
+                newList[i + 1] = newList[i + 1].replace("${newList[i + 1][0]}", "")
+                result += newList[i].toDouble() * newList[i + 1].toDouble() - result
+            }
+
+            if (newList[i + 1][0] == '/') {
+                newList[i + 1] = newList[i + 1].replace("${newList[i + 1][0]}", "")
+                result += newList[i].toDouble() / newList[i + 1].toDouble() - result
+            }
 
             newList.set(i, "0")
             newList.set(i + 1, "0")
@@ -42,41 +46,6 @@ fun multiplication(list : List<String>): List<String> {
     return newList
 
 }
-
-fun division(list : List<String>): List<String> {
-    var result : Double = 0.0
-
-    println(list)
-    val newList : MutableList<String> = list.toMutableList()
-
-    var i = 0
-    println(newList.size)
-    while (i < newList.size-1) {
-        println("index at: $i")
-        if (newList[i + 1][0] == '/') {
-            newList[i] = newList[i].replace("/", "")
-            newList[i + 1] = newList[i + 1].replace("/", "")
-            println(newList)
-            result += newList[i].toDouble() / newList[i + 1].toDouble() - result
-
-            newList.set(i, "0")
-            newList.set(i + 1, "0")
-            println("Step 1: $newList")
-
-            newList.add(i + 2, result.toString())
-            println("Step 2: $newList")
-            i += 2
-        } else {
-            i += 1
-        }
-
-    }
-
-    println("Finished $newList")
-    return newList
-
-}
-
 
 fun main(input: String): Double {
     val userInput: String = input
@@ -84,11 +53,11 @@ fun main(input: String): Double {
     var result : Double = 0.0
 
     parsedInput = multiplication(parsedInput)
-    parsedInput = division(parsedInput)
     parsedInput.forEachIndexed { i, token ->
         result += parsedInput[i].toDouble()
     }
-
+    //Rounds up, so maybe should be changed or increase the digits
+    result = String.format("%.3f", result).toDouble()
     println("AND THE RESULT ISSS: $result")
     return result
 

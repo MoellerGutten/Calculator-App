@@ -71,6 +71,12 @@ class MainKtTest {
     }
 
     @Test
+    fun TestMultiplication7() {
+        val expected: Double = 155.0
+        assertEquals(expected, main("-5*-5"))
+    }
+
+    @Test
     fun TestDivision1() {
         val expected: Double = 1.0
         assertEquals(expected, main("10/10"))
@@ -84,7 +90,7 @@ class MainKtTest {
 
     @Test
     fun TestDivision3() {
-        val expected: Double = 75.28888
+        val expected: Double = 75.289
         assertEquals(expected, main("7.6/9*11+66"))
     }
 
