@@ -72,8 +72,14 @@ class MainKtTest {
 
     @Test
     fun TestMultiplication7() {
-        val expected: Double = 155.0
+        val expected: Double = 25.0
         assertEquals(expected, main("-5*-5"))
+    }
+
+    @Test
+    fun TestMultiplication8() {
+        val expected: Double = -25.0
+        assertEquals(expected, main("5*-5"))
     }
 
     @Test
@@ -94,6 +100,23 @@ class MainKtTest {
         assertEquals(expected, main("7.6/9*11+66"))
     }
 
+    @Test
+    fun TestDivision4() {
+        val expected: Double = 1.0
+        assertEquals(expected, main("1000/10/10/10"))
+    }
+
+    @Test
+    fun TestDivision5() {
+        val expected: Double = Double.POSITIVE_INFINITY
+        assertEquals(expected, main("1/0"))
+    }
+
+    @Test
+    fun TestDivision6() {
+        val expected: Double = 1.0
+        assertEquals(expected, main("1/1"))
+    }
 
 
 

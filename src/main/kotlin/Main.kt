@@ -1,4 +1,3 @@
-
 fun parseInput(input : String): List<String> {
     val reg = Regex("(?=[/*+-])")
     val parsedInput: List<String> = input.split(reg)
@@ -6,19 +5,32 @@ fun parseInput(input : String): List<String> {
     if (newList[0] == "") {
         newList.removeAt(0)
     }
-
     return newList
 }
 
-fun multiplication(list : List<String>): List<String> {
+fun mutlivision(list : List<String>): List<String> {
     var result : Double = 0.0
     val newList : MutableList<String> = list.toMutableList()
+    if ("*" in newList || "/" in newList) {
+        newList.forEachIndexed() {i, num ->
+            if (num == "*" || num == "/") {
+                if (newList[i-1][0] == '-') {
+                    newList[i-1] = newList[i-1].replace("-", "")
+                }
+                else {
+                    newList[i-1] = "-" + newList[i-1]
+                }
+                newList[i + 1] = newList[i + 1].replace("-", "")
+                newList[i+1] = newList[i] + newList[i+1]
+                newList.removeAt(i)
+            }
+
+        }
+    }
 
     var i = 0
     while (i < newList.size-1) {
         if (newList[i + 1][0] == '*' || newList[i+1][0] == '/') {
-
-            println(newList)
             if (newList[i + 1][0] == '*') {
                 newList[i + 1] = newList[i + 1].replace("${newList[i + 1][0]}", "")
                 result += newList[i].toDouble() * newList[i + 1].toDouble() - result
@@ -31,20 +43,13 @@ fun multiplication(list : List<String>): List<String> {
 
             newList.set(i, "0")
             newList.set(i + 1, "0")
-            println("Step 1: $newList")
-
             newList.add(i + 2, result.toString())
-            println("Step 2: $newList")
             i += 2
         } else {
             i += 1
         }
-
     }
-
-    println("Finished $newList")
     return newList
-
 }
 
 fun main(input: String): Double {
@@ -52,7 +57,7 @@ fun main(input: String): Double {
     var parsedInput = parseInput(userInput)
     var result : Double = 0.0
 
-    parsedInput = multiplication(parsedInput)
+    parsedInput = mutlivision(parsedInput)
     parsedInput.forEachIndexed { i, token ->
         result += parsedInput[i].toDouble()
     }
